@@ -1,0 +1,81 @@
+<div class="row-fluid" style="height: 100%;">
+
+  <div class="span2" style="background-color: #fafafa; height: 100%; border-right: 1px solid #ddd;" ng-include src="'partials/left-nav.html'"></div>
+
+  <div class="span10" style="padding: 10px;">
+    <div class="row-fluid" ng-show="error">
+      <div class="alert alert-error"><i class="icon-warning-sign"></i> {{ error }}</div>
+    </div>
+
+    <div class="container-fluid" ng-show="ready && !error" ng-init="getMail()">
+
+      <div class="row-fluid">
+        <div class="btn-toolbar pull-left">
+          <div class="btn-group">
+            <button class="btn dropdown-toggle" data-toggle="dropdown"><i class="icon-folder-open"></i> <b class="caret"></b></span></button>
+            <ul class="dropdown-menu">
+              <li class="nav-header">Move To</li>
+              <li class="divider"></li>
+              <li ng-repeat="f in movableFolders()"><a href="" ng-click="moveToFolder(f.name)">{{ f.name }}</a></li>
+            </ul>
+          </div>
+          <div class="btn-group" ng-switch on="mailFolder">
+            <button class="btn" ng-click="delete()" ng-switch-when="TRASH"><i class="icon-remove"></i></button>
+            <button class="btn" ng-click="moveToFolder('TRASH')" ng-switch-default><i class="icon-trash"></i></button>
+          </div>
+        </div>
+
+        <div class="btn-toolbar pull-right">
+          <div class="btn-group">
+            <button class="btn" ng-click="reply()"><i class="icon-mail-reply"></i></button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row-fluid">
+        <h3>{{ mail.subject }}</h3>
+      </div>
+      <div class="row-fluid">
+        <div class="span10">
+          <span class="read-from">{{ mail.from.personal }}</span> <span>{{ '<' + mail.from.address + '>' }}</span>
+        </div>
+        <div class="span2">
+          <span class="pull-right">{{ mail.sent | sentOn:'verbose'}}</span> 
+        </div>    
+      </div>
+      <div class="row-fluid">
+        to <span ng-repeat="to in mail.to">{{ to.address }}</span>
+      </div>
+      
+      <hr>
+      
+      <div class="row-fluid">
+        <div class="btn-group pull-right">
+          <button class="btn btn-small dropdown-toggle" data-toggle="dropdown">{{ mail.fmt }} <span class="caret" style="margin-left: 2px;"></span></button>
+          <ul class="dropdown-menu read-fmt-ul">
+            <li ng-repeat="fmt in mail.availableFmts"><a href="" ng-click='getMail(fmt)'>{{ fmt }}</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="row-fluid">
+        <div class="read-mailbody-container">
+          <pre>{{ mail.data }}</pre>
+        </div>
+      </div>
+
+      <div class="row-fluid" ng-show="mail.attachments.length > 0">
+        <div class="read-attachments-container">
+          <h4><i class="icon-file"></i> Attachments</h4>
+          <ul>
+            <li ng-repeat="attachment in mail.attachments">
+              <span><b>{{ attachment.name }}</b>, {{ attachment.size }} bytes</span><br>
+              <span class="mime-type">{{ attachment.contentType }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>

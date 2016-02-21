@@ -1,0 +1,31 @@
+<div class="row-fluid" style="height: 100%;">
+
+  <div class="span2" style="background-color: #fafafa; height: 100%; border-right: 1px solid #ddd;" ng-include src="'partials/left-nav.html'"></div>
+
+  <div class="span10" style="padding: 10px;">
+    <form class="compose" novalidate>
+      <div class="row-fluid" ng-show="error">
+        <div class="alert alert-error"><i class="icon-warning-sign"></i> {{ error }}</div>
+      </div>
+      <div class="row-fluid">
+        <input type="text" class="field span12"  placeholder="To" ng-model="compose.to" autofocus>
+      </div>
+      <div class="row-fluid">
+        <input type="text" class="field span12"  placeholder="Cc" ng-model="compose.cc">
+      </div>
+      <div class="row-fluid">
+        <input type="text" class="field span12"  placeholder="Bcc" ng-model="compose.bcc">
+      </div>
+      <div class="row-fluid">
+        <input type="text" class="field span12" placeholder="Subject" ng-model="compose.subject">
+      </div>
+      <div class="row-fluid">
+        <textarea id="compose" rows="20" class="field span12" ng-model="compose.data"></textarea>
+      </div>
+      <div class="row-fluid">
+        <button class="btn btn-primary pull-right" ng-click="send()">Send</button>
+      </div>
+    </form>
+  </div>
+
+</div>

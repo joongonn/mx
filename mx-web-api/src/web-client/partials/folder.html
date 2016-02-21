@@ -1,0 +1,64 @@
+<div class="row-fluid" style="height: 100%;">
+
+  <div class="span2" style="background-color: #fafafa; height: 100%; border-right: 1px solid #ddd;" ng-include src="'partials/left-nav.html'"></div>
+
+  <div class="span10" style="padding: 10px;">
+    <div class="container-fluid" ng-init="refresh();">
+      <div class="row-fluid">
+        <div class="btn-toolbar pull-left" ng-show="listing.length > 0">
+          <div class="btn-group">
+            <button class="btn dropdown-toggle" data-toggle="dropdown" ng-disabled="!hasChecked();"><i class="icon-flag"></i> <b class="caret"></b></span></button>
+            <ul class="dropdown-menu">
+              <li class="nav-header">Flag As</li>
+              <li class="divider"></li>
+              <li><a href="" ng-click="flagSeen(true)">Read</a></li>
+              <li><a href="" ng-click="flagSeen(false)">Unread</a></li>
+            </ul>
+          </div>
+          <div class="btn-group">
+            <button class="btn dropdown-toggle" data-toggle="dropdown" ng-disabled="!hasChecked();"><i class="icon-folder-open"></i> <b class="caret"></b></span></button>
+            <ul class="dropdown-menu">
+              <li class="nav-header">Move To</li>
+              <li class="divider"></li>
+              <li ng-repeat="f in movableFolders()"><a href="" ng-click="moveToFolder(f.name)">{{ f.name }}</a></li>
+            </ul>
+          </div>
+          <div class="btn-group" ng-switch on="currentFolder">
+            <button class="btn" ng-disabled="!hasChecked();" ng-click="deleteChecked()" ng-switch-when="TRASH"><i class="icon-remove"></i></button>
+            <button class="btn" ng-disabled="!hasChecked();" ng-click="moveToFolder('TRASH')" ng-switch-default><i class="icon-trash"></i></button>
+          </div>
+        </div>
+        <div class="btn-toolbar pull-right">
+        <div class="btn-group">
+            <button class="btn" ng-click="refresh();"><i class="icon-refresh" ng-class="{'icon-spin': loading}"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="row-fluid" ng-show="error">
+        <div class="alert alert-error"><i class="icon-warning-sign"></i> {{ error }}</div>
+      </div>
+      <div class="row-fluid" ng-show="!error && !listing.length">
+        <div class="alert"><i class="icon-info-sign"></i> No mail</div>
+      </div>
+
+      <div class="row-fluid" ng-show="listing.length">
+        <table class="table table-bordered">
+          <tbody>
+            <tr ng-repeat="entry in listing" class="folder-entry" ng-class="{'is-new': !entry.flgSeen, 'is-checked': isChecked(entry.mailId)}" ng-click="read(entry.mailId);">
+              <td class="col-checkbox" ng-click="toggleCheckbox($event, entry.mailId);">
+                <div class="folder-entry-checkbox" ng-click="toggleCheckbox($event, entry.mailId)">
+                  <img class="folder-entry-checkbox-tick" src="/img/check.png" ng-show="isChecked(entry.mailId)">
+                </div>
+              </td>
+              <td class="col-from"><span ng-if="entry.from.personal">{{ entry.from.personal }}</span><span ng-if="!entry.from.personal">{{ entry.from.address }}</span></td>
+              <td>{{ entry.subject }} <i class="icon-paperclip icon-large" ng-show="entry.attachments > 0"></i></span></td>
+              <td class="col-date">{{ entry.sent | sentOn}}</td>
+            </tr>
+          </tbody>
+        </table>  
+      </div>
+    </div>
+
+  </div>
+</div>

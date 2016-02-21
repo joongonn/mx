@@ -1,0 +1,15 @@
+<div class="container-fluid">
+  <div style="margin-top:20px;" class="row-fluid">
+    <div class="offset4 span4 well" style="padding: 30px;">
+      <div class="alert alert-error" ng-show="error"><i class="icon-warning-sign"></i> {{ error }}</div>
+      <form method="POST">
+        <input type="text" placeholder="Email" autofocus class="span12" ng-model="email">
+        <input type="password" placeholder="Password" class="span12" ng-model="password">
+        <hr>
+        <div class="btn-toolbar">
+          <button type="submit" class="btn btn-primary pull-right" ng-click="authenticate()">Log in</button>
+        </div>
+      </form>
+    </div>
+ </div>
+</div>

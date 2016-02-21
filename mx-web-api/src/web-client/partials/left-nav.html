@@ -1,0 +1,7 @@
+<ul class="nav nav-tabs nav-stacked span2" style="position: fixed;">
+  <li ng-repeat="f in folders">
+    <a href="#/folder/{{ f.name }}" ng-class="{'folder-current': (currentFolder == f.name)}">
+      <i ng-class="{'icon-folder-open': (currentFolder == f.name), 'icon-folder-close-alt': (currentFolder != f.name)}"></i> {{ f.name }}
+    </a>
+  </li>
+</ul>
